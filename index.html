@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Опрос: Ваш голос в работе учителя</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+            color: #2e7d32;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        p.intro {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 16px;
+            color: #555;
+        }
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 20px;
+            height: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        .progress {
+            background-color: #4caf50;
+            height: 100%;
+            width: 0;
+            transition: width 0.5s ease;
+        }
+        .progress-text {
+            position: absolute;
+            top: -20px;
+            right: 0;
+            font-size: 12px;
+            color: #666;
+        }
+        .step {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .step.active {
+            display: block;
+            opacity: 1;
+        }
+        .question {
+            margin-bottom: 25px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s ease;
+        }
+        .question:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #2e7d32;
+            font-size: 16px;
+        }
+        .note {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        select, input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        .feedback {
+            text-align: center;
+            color: #4caf50;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .prev {
+            background: #bdbdbd;
+            color: white;
+        }
+        .next, .submit {
+            background: #4caf50;
+            color: white;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        button:disabled {
+            background: #e0e0e0;
+            cursor: not-allowed;
+        }
+        .hidden {
+            display: none !important;
+        }
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            button {
+                width: 48%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-microphone"></i> Опрос: Ваш голос в работе учителя</h1>
+        <p class="intro">Здравствуйте, дорогие учителя! 😊 Эта анкета поможет понять проблемы с голосом. Она анонимна, займёт 10-15 минут. В конце — шанс выиграть один из 3 сертификатов в "Читай-город"!<br><br>С уважением, Анастасия Ш., студентка 3 курса ИГМУ<br>ak2205781@gmail.com</p>
+        <div class="progress-bar">
+            <div class="progress"></div>
+            <span class="progress-text">0%</span>
+        </div>
+        <form action="https://formspree.io/f/movkrgky" method="POST" id="surveyForm">
+            <!-- Step 1: Демография -->
+            <div class="step active" id="step1">
+                <div class="question">
+                    <label>1. Ваш пол:</label>
+                    <input type="radio" name="q1_pol" value="женский" required> Женский<br>
+                    <input type="radio" name="q1_pol" value="мужской"> Мужской
+                </div>
+                <div class="question">
+                    <label>2. Ваш возраст:</label>
+                    <input type="radio" name="q2_age" value="20-25 лет" required> 20-25 лет<br>
+                    <input type="radio" name="q2_age" value="26-35 лет"> 26-35 лет<br>
+                    <input type="radio" name="q2_age" value="36-45 лет"> 36-45 лет<br>
+                    <input type="radio" name="q2_age" value="46-55 лет"> 46-55 лет<br>
+                    <input type="radio" name="q2_age" value="более 55 лет"> Более 55 лет
+                </div>
+                <div class="question">
+                    <label>3. Укажите Ваше место работы:</label>
+                    <select name="q3_work_place" required>
+                        <option value="">Выберите...</option>
+                        <option value="МБОУ г. Иркутска СОШ №57">МБОУ г. Иркутска СОШ №57</option>
+                        <option value="ЧОУ 'Точка будущего'">ЧОУ "Точка будущего"</option>
+                        <option value="МАОУ г. Иркутска СОШ №69">МАОУ г. Иркутска СОШ №69</option>
+                        <option value="МБОУ г. Иркутска лицей №3">МБОУ г. Иркутска лицей №3</option>
+                        <option value="МБОУ г. Иркутска гимназия №1">МБОУ г. Иркутска гимназия №1</option>
+                        <option value="МБОУ г. Иркутска гимназия №3">МБОУ г. Иркутска гимназия №3</option>
+                        <option value="МБОУ г. Братска СОШ №14">МБОУ г. Братска СОШ №14</option>
+                        <option value="МБОУ г. Слюдянки СОШ №50">МБОУ г. Слюдянки СОШ №50</option>
+                        <option value="МАОУ г. Улан-Удэ СОШ №35">МАОУ г. Улан-Удэ СОШ №35</option>
+                        <option value="МБОУ 'Тарбагатайская СОШ'">МБОУ "Тарбагатайская СОШ"</option>
+                    </select>
+                </div>
+                <div class="question">
+                    <label>4. Укажите Вашу специальность:</label>
+                    <input type="radio" name="q4_specialty" value="учитель начальных классов" required id="spec_nach"> Учитель начальных классов<br>
+                    <input type="radio" name="q4_specialty" value="учитель-предметник" id="spec_pred"> Учитель-предметник<br>
+                    <input type="radio" name="q4_specialty" value="учитель-логопед" id="spec_log"> Учитель-логопед<br>
+                    <input type="radio" name="q4_specialty" value="педагог дополнительного образования" id="spec_dop"> Педагог дополнительного образования<br>
+                    <input type="radio" name="q4_specialty" value="педагог-психолог" id="spec_psih"> Педагог-психолог
+                </div>
+            </div>
+
+            <!-- Step 2: Ваша работа -->
+            <div class="step" id="step2">
+                <div class="question" id="q5_disciplines">
+                    <label>5. Какие дисциплины преподаёте? (Для учителей-предметников)</label>
+                    <p class="note">Если психолог/логопед/педагог доп. образования — "внеурочные занятия"; учитель начальных — "предметы начальной школы".</p>
+                    <select name="q5_disciplines">
+                        <option value="">Выберите...</option>
+                        <option value="химия">Химия</option>
+                        <option value="биология">Биология</option>
+                        <option value="география">География</option>
+                        <option value="русский язык и литература">Русский язык и литература</option>
+                        <option value="иностранный язык">Иностранный язык</option>
+                        <option value="история и обществознание">История и обществознание</option>
+                        <option value="математика, алгебра, геометрия">Математика, алгебра, геометрия</option>
+                        <option value="физика, астрономия">Физика, астрономия</option>
+                        <option value="информатика">Информатика</option>
+                        <option value="технология">Технология</option>
+                        <option value="изобразительное искусство">Изобразительное искусство</option>
+                        <option value="музыка">Музыка</option>
+                        <option value="физическая культура">Физическая культура</option>
+                        <option value="ОБЖ (ОБЗР)">ОБЖ (ОБЗР)</option>
+                        <option value="предметы начальной школы">Предметы начальной школы</option>
+                        <option value="внеурочные занятия (факультативы)">Внеурочные занятия (факультативы)</option>
+                    </select>
+                </div>
+                <div class="question">
+                    <label>6. С какими классами Вы работаете? (Несколько вариантов)</label>
+                    <input type="checkbox" name="q6_classes[]" value="1-4 классы (начальное звено)"> 1-4 классы (начальное звено)<br>
+                    <input type="checkbox" name="q6_classes[]" value="5-9 классы (среднее звено)"> 5-9 классы (среднее звено)<br>
+                    <input type="checkbox" name="q6_classes[]" value="10-11 классы (старшее звено)"> 10-11 классы (старшее звено)
+                </div>
+                <div class="question">
+                    <label>7. Стаж работы по специальности:</label>
+                    <input type="radio" name="q7_experience" value="до 5 лет" required> До 5 лет<br>
+                    <input type="radio" name="q7_experience" value="5-15 лет"> 5-15 лет<br>
+                    <input type="radio" name="q7_experience" value="16-25 лет"> 16-25 лет<br>
+                    <input type="radio" name="q7_experience" value="26-35 лет"> 26-35 лет<br>
+                    <input type="radio" name="q7_experience" value="более 35 лет"> Более 35 лет
+                </div>
+            </div>
+
+            <!-- Step 3: Голос в повседневной работе -->
+            <div class="step" id="step3">
+                <div class="question">
+                    <label>8. Были ли у Вас нарушения голоса за время работы?</label>
+                    <p class="note">Да — если хоть раз; Нет — никогда.</p>
+                    <input type="radio" name="q8_voice_issues" value="да" id="voice_yes" required> Да<br>
+                    <input type="radio" name="q8_voice_issues" value="нет" id="voice_no"> Нет
+                </div>
+                <div id="voice_related">
+                    <div class="question">
+                        <label>9. Спустя какой промежуток времени заметили нарушения?</label>
+                        <input type="radio" name="q9_voice_onset" value="нет нарушений" required> Нет нарушений<br>
+                        <input type="radio" name="q9_voice_onset" value="после 1-2 лет"> После 1-2 лет<br>
+                        <input type="radio" name="q9_voice_onset" value="после 3-5 лет"> После 3-5 лет<br>
+                        <input type="radio" name="q9_voice_onset" value="после 10 лет"> После 10 лет<br>
+                        <input type="radio" name="q9_voice_onset" value="после 15 лет"> После 15 лет<br>
+                        <input type="radio" name="q9_voice_onset" value="по прошествии более 15 лет"> По прошествии более 15 лет
+                    </div>
+                    <div class="question">
+                        <label>10. Какие ощущения возникают при нарушении голоса? (Несколько вариантов)</label>
+                        <input type="checkbox" name="q10_sensations[]" value="нет ощущений"> Нет ощущений<br>
+                        <input type="checkbox" name="q10_sensations[]" value="першение в горле"> Першение в горле<br>
+                        <input type="checkbox" name="q10_sensations[]" value="боль в горле"> Боль в горле<br>
+                        <input type="checkbox" name="q10_sensations[]" value="желание откашляться"> Желание откашляться<br>
+                        <input type="checkbox" name="q10_sensations[]" value="охриплость"> Охриплость<br>
+                        <input type="checkbox" name="q10_sensations[]" value="осиплость"> Осиплость<br>
+                        <input type="checkbox" name="q10_sensations[]" value="частичная потеря голоса"> Частичная потеря голоса<br>
+                        <input type="checkbox" name="q10_sensations[]" value="полная потеря голоса"> Полная потеря голоса<br>
+                        <input type="checkbox" name="q10_sensations[]" value="быстрая истощаемость голоса"> Быстрая истощаемость голоса<br>
+                        <input type="checkbox" name="q10_sensations[]" value="изменение высоты голоса"> Изменение высоты голоса<br>
+                        <input type="checkbox" name="q10_sensations[]" value="изменение тембра голоса"> Изменение тембра голоса
+                    </div>
+                    <div class="question">
+                        <label>11. В какое время нарушения возникают чаще?</label>
+                        <input type="radio" name="q11_time" value="нет нарушений" required> Нет нарушений<br>
+                        <input type="radio" name="q11_time" value="утром, до рабочего дня"> Утром, до рабочего дня<br>
+                        <input type="radio" name="q11_time" value="в течение рабочего дня"> В течение рабочего дня<br>
+                        <input type="radio" name="q11_time" value="вечером, после рабочего дня"> Вечером, после рабочего дня<br>
+                        <input type="radio" name="q11_time" value="в сентябре, после летнего отпуска"> В сентябре, после летнего отпуска<br>
+                        <input type="radio" name="q11_time" value="Другое"> Другое: <input type="text" name="q11_other">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Нагрузка и окружение -->
+            <div class="step" id="step4">
+                <div class="question">
+                    <label>12. Ваша голосовая нагрузка в неделю:</label>
+                    <input type="radio" name="q12_load" value="менее 20 часов" required> Менее 20 часов<br>
+                    <input type="radio" name="q12_load" value="20 часов"> 20 часов<br>
+                    <input type="radio" name="q12_load" value="21-25 часов"> 21-25 часов<br>
+                    <input type="radio" name="q12_load" value="26-30 часов"> 26-30 часов<br>
+                    <input type="radio" name="q12_load" value="31-35 часов"> 31-35 часов<br>
+                    <input type="radio" name="q12_load" value="36-40 часов"> 36-40 часов<br>
+                    <input type="radio" name="q12_load" value="более 40 часов"> Более 40 часов
+                </div>
+                <div class="question">
+                    <label>13. Часто ли повышаете голос на занятиях?</label>
+                    <input type="radio" name="q13_raise_voice" value="нет, никогда" required> Нет, никогда<br>
+                    <input type="radio" name="q13_raise_voice" value="иногда"> Иногда<br>
+                    <input type="radio" name="q13_raise_voice" value="да, часто"> Да, часто
+                </div>
+                <div class="question">
+                    <label>14. Как часто испытываете психоэмоциональное напряжение?</label>
+                    <input type="radio" name="q14_tension" value="часто" required> Часто<br>
+                    <input type="radio" name="q14_tension" value="иногда"> Иногда<br>
+                    <input type="radio" name="q14_tension" value="редко"> Редко<br>
+                    <input type="radio" name="q14_tension" value="не испытываю психоэмоционального напряжения"> Не испытываю
+                </div>
+                <div class="question">
+                    <label>15. Частичная потеря голоса от напряжения?</label>
+                    <input type="radio" name="q15_partial_loss" value="да" required> Да<br>
+                    <input type="radio" name="q15_partial_loss" value="нет"> Нет
+                </div>
+                <div class="question">
+                    <label>16. Полная потеря голоса от напряжения?</label>
+                    <input type="radio" name="q16_full_loss" value="да" required> Да<br>
+                    <input type="radio" name="q16_full_loss" value="нет"> Нет
+                </div>
+                <div class="question">
+                    <label>17. Проводится ли ежедневная влажная уборка?</label>
+                    <input type="radio" name="q17_cleaning" value="да" required> Да<br>
+                    <input type="radio" name="q17_cleaning" value="нет"> Нет
+                </div>
+                <div class="question">
+                    <label>18. Проветривается ли класс после урока?</label>
+                    <input type="radio" name="q18_ventilation" value="да" required> Да<br>
+                    <input type="radio" name="q18_ventilation" value="нет"> Нет
+                </div>
+                <div class="question">
+                    <label>19. Температурные ощущения в классе:</label>
+                    <input type="radio" name="q19_temperature" value="холодно (дискомфортно)" required> Холодно (дискомфортно)<br>
+                    <input type="radio" name="q19_temperature" value="жарко (дискомфортно)"> Жарко (дискомфортно)<br>
+                    <input type="radio" name="q19_temperature" value="оптимально (комфортно)"> Оптимально (комфортно)<br>
+                    <input type="radio" name="q19_temperature" value="периодически комфортно и дискомфортно в течение рабочего дня"> Периодически комфортно и дискомфортно
+                </div>
+            </div>
+
+            <!-- Step 5: Здоровье в целом -->
+            <div class="step" id="step5">
+                <div class="question">
+                    <label>20. Как часто страдаете простудными заболеваниями?</label>
+                    <input type="radio" name="q20_colds" value="не страдаю простудными заболеваниями" required> Не страдаю<br>
+                    <input type="radio" name="q20_colds" value="1-2 раза в год"> 1-2 раза в год<br>
+                    <input type="radio" name="q20_colds" value="3-4 раза в год"> 3-4 раза в год<br>
+                    <input type="radio" name="q20_colds" value="5 и более раз в год"> 5 и более раз в год
+                </div>
+                <div class="question">
+                    <label>21. Страдаете ли хроническими заболеваниями дыхательных путей? (Несколько вариантов)</label>
+                    <input type="checkbox" name="q21_chronic[]" value="нет"> Нет<br>
+                    <input type="checkbox" name="q21_chronic[]" value="ринит"> Ринит<br>
+                    <input type="checkbox" name="q21_chronic[]" value="фарингит"> Фарингит<br>
+                    <input type="checkbox" name="q21_chronic[]" value="ларингит"> Ларингит<br>
+                    <input type="checkbox" name="q21_chronic[]" value="трахеит"> Трахеит<br>
+                    <input type="checkbox" name="q21_chronic[]" value="бронхит"> Бронхит<br>
+                    <input type="checkbox" name="q21_chronic[]" value="ларинготрахеит"> Ларинготрахеит<br>
+                    <input type="checkbox" name="q21_chronic[]" value="трахеобронхит"> Трахеобронхит
+                </div>
+                <div class="question">
+                    <label>22. Имеете ли заболевания щитовидной железы?</label>
+                    <input type="radio" name="q22_thyroid" value="нет" required> Нет<br>
+                    <input type="radio" name="q22_thyroid" value="гипотиреоз"> Гипотиреоз<br>
+                    <input type="radio" name="q22_thyroid" value="гипертиреоз"> Гипертиреоз<br>
+                    <input type="radio" name="q22_thyroid" value="Другое"> Другое: <input type="text" name="q22_other">
+                </div>
+                <div class="question">
+                    <label>23. Диагностировали ли парезы или параличи гортани?</label>
+                    <input type="radio" name="q23_larynx" value="да" required> Да<br>
+                    <input type="radio" name="q23_larynx" value="нет"> Нет
+                </div>
+            </div>
+
+            <!-- Step 6: Привычки и образ жизни -->
+            <div class="step" id="step6">
+                <div class="question">
+                    <label>24. Курите ли Вы табачные изделия (сигареты)?</label>
+                    <input type="radio" name="q24_smoking" value="да" id="smoke_yes" required> Да<br>
+                    <input type="radio" name="q24_smoking" value="нет" id="smoke_no"> Нет
+                </div>
+                <div id="smoking_related">
+                    <div class="question">
+                        <label>25. Сколько сигарет в день Вы выкуриваете?</label>
+                        <input type="radio" name="q25_cigarettes" value="не курю" required> Не курю<br>
+                        <input type="radio" name="q25_cigarettes" value="до 2"> До 2<br>
+                        <input type="radio" name="q25_cigarettes" value="до 5"> До 5<br>
+                        <input type="radio" name="q25_cigarettes" value="до 10"> До 10<br>
+                        <input type="radio" name="q25_cigarettes" value="до 20"> До 20<br>
+                        <input type="radio" name="q25_cigarettes" value="более 1 пачки"> Более 1 пачки
+                    </div>
+                    <div class="question">
+                        <label>26. Курите ли Вы электронные сигареты?</label>
+                    <input type="radio" name="q26_vape" value="да" required> Да<br>
+                    <input type="radio" name="q26_vape" value="нет"> Нет
+                    </div>
+                    <div class="question">
+                        <label>27. Число затяжек в день от электронных сигарет:</label>
+                        <input type="radio" name="q27_puffs" value="не курю" required> Не курю<br>
+                        <input type="radio" name="q27_puffs" value="до 30"> До 30<br>
+                        <input type="radio" name="q27_puffs" value="до 75"> До 75<br>
+                        <input type="radio" name="q27_puffs" value="до 150"> До 150<br>
+                        <input type="radio" name="q27_puffs" value="до 300"> До 300<br>
+                        <input type="radio" name="q27_puffs" value="более 300"> Более 300
+                    </div>
+                    <div class="question">
+                        <label>28. Ваш стаж курения:</label>
+                        <input type="radio" name="q28_smoking_years" value="не курю" required> Не курю<br>
+                        <input type="radio" name="q28_smoking_years" value="до 5 лет"> До 5 лет<br>
+                        <input type="radio" name="q28_smoking_years" value="5 лет"> 5 лет<br>
+                        <input type="radio" name="q28_smoking_years" value="10 лет"> 10 лет<br>
+                        <input type="radio" name="q28_smoking_years" value="15 лет"> 15 лет<br>
+                        <input type="radio" name="q28_smoking_years" value="более 15 лет"> Более 15 лет
+                    </div>
+                    <div class="question">
+                        <label>29. Спустя сколько времени после начала курения заметили нарушения голоса?</label>
+                        <input type="radio" name="q29_smoking_onset" value="не курю" required> Не курю<br>
+                        <input type="radio" name="q29_smoking_onset" value="нет нарушений"> Нет нарушений<br>
+                        <input type="radio" name="q29_smoking_onset" value="после 1-2 лет"> После 1-2 лет<br>
+                        <input type="radio" name="q29_smoking_onset" value="после 3-5 лет"> После 3-5 лет<br>
+                        <input type="radio" name="q29_smoking_onset" value="после 10 лет"> После 10 лет<br>
+                        <input type="radio" name="q29_smoking_onset" value="после 15 лет"> После 15 лет<br>
+                        <input type="radio" name="q29_smoking_onset" value="по прошествии более 15 лет"> По прошествии более 15 лет
+                    </div>
+                    <div class="question">
+                        <label>30. Ощущения при нарушении голоса от курения? (Несколько вариантов)</label>
+                        <input type="checkbox" name="q30_smoking_sensations[]" value="не курю"> Не курю<br>
+                        <input type="checkbox" name="q30_smoking_sensations[]" value="нет нарушений"> Нет нарушений<br>
+                        <input type="checkbox" name="q30_smoking_sensations[]" value="першение в горле"> Першение в горле<br>
+                        <input type="checkbox" name="q30_smoking_sensations[]" value="боль в горле"> Боль в горле<br>
+                        <input type="checkbox" name="q30_smoking_sensations[]" value="желание откашляться"> Желание откашляться<br>
+                        <input type="checkbox" name="q30_smoking_sensations[]" value="охриплость"> Охриплость<br>
+                        <input type="checkbox" name="q30_smoking_sensations[]" value="осиплость"> Осиплость<br>
+                        <input type="checkbox" name="q30_smoking_sensations[]" value="частичная потеря голоса"> Частичная потеря голоса<br>
+                        <input type="checkbox" name="q30_smoking_sensations[]" value="полная потеря голоса"> Полная потеря голоса<br>
+                        <input type="checkbox" name="q30_smoking_sensations[]" value="быстрая истощаемость голоса"> Быстрая истощаемость голоса<br>
+                        <input type="checkbox" name="q30_smoking_sensations[]" value="изменение высоты голоса"> Изменение высоты голоса<br>
+                        <input type="checkbox" name="q30_smoking_sensations[]" value="изменение тембра голоса"> Изменение тембра голоса
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 7: Причины и профилактика -->
+            <div class="step" id="step7">
+                <div class="question">
+                    <label>31. С чем связываете нарушения голоса? (Несколько вариантов)</label>
+                    <input type="checkbox" name="q31_factors[]" value="нет нарушений голоса"> Нет нарушений голоса<br>
+                    <input type="checkbox" name="q31_factors[]" value="неблагоприятная рабочая обстановка (холодные, плохо проветриваемые классы и т.д.)"> Неблагоприятная рабочая обстановка<br>
+                    <input type="checkbox" name="q31_factors[]" value="большая голосовая нагрузка в течение рабочей недели"> Большая голосовая нагрузка<br>
+                    <input type="checkbox" name="q31_factors[]" value="частое повышение голоса во время занятий"> Частое повышение голоса<br>
+                    <input type="checkbox" name="q31_factors[]" value="постоянное ощущение психоэмоционального напряжения при работе с учениками"> Психоэмоциональное напряжение<br>
+                    <input type="checkbox" name="q31_factors[]" value="длительное курение обычных или электронных сигарет"> Длительное курение<br>
+                    <input type="checkbox" name="q31_factors[]" value="частые обострения хронических воспалительных заболеваний верхних или нижних дыхательных путей"> Обострения хронических заболеваний дыхания<br>
+                    <input type="checkbox" name="q31_factors[]" value="заболевания щитовидной железы"> Заболевания щитовидной железы<br>
+                    <input type="checkbox" name="q31_factors[]" value="парезы или параличи гортани"> Парезы или параличи гортани
+                </div>
+                <div class="question">
+                    <label>32. К каким средствам прибегаете для улучшения голоса? (Несколько вариантов)</label>
+                    <input type="checkbox" name="q32_remedies[]" value="нет нарушений голоса"> Нет нарушений голоса<br>
+                    <input type="checkbox" name="q32_remedies[]" value="обращение к врачу"> Обращение к врачу<br>
+                    <input type="checkbox" name="q32_remedies[]" value="полоскание горла раствором ромашки, шалфея, эвкалипта, календулы"> Полоскание горла травами<br>
+                    <input type="checkbox" name="q32_remedies[]" value="ингаляции физиологическим раствором (NaCl 0,9%), минеральной водой"> Ингаляции<br>
+                    <input type="checkbox" name="q32_remedies[]" value="приём гомеопатических препаратов (гомеовокс)"> Приём гомеопатических препаратов<br>
+                    <input type="checkbox" name="q32_remedies[]" value="не предпринимаю мер по улучшению качества голоса"> Не предпринимаю мер
+                </div>
+                <div class="question">
+                    <label>33. Какие правила гигиены голоса соблюдаете постоянно? (Несколько вариантов)</label>
+                    <input type="checkbox" name="q33_rules[]" value="не соблюдаю ни одного правила"> Не соблюдаю ни одного правила<br>
+                    <input type="checkbox" name="q33_rules[]" value="соблюдение голосового режима"> Соблюдение голосового режима<br>
+                    <input type="checkbox" name="q33_rules[]" value="подготовка голосового аппарата к повышенной нагрузке"> Подготовка голосового аппарата к нагрузке<br>
+                    <input type="checkbox" name="q33_rules[]" value="поддержание адекватных профессиональных условий труда"> Поддержание условий труда<br>
+                    <input type="checkbox" name="q33_rules[]" value="своевременное лечение простудных заболеваний"> Своевременное лечение простуды<br>
+                    <input type="checkbox" name="q33_rules[]" value="систематическое наблюдение у фониатра или ЛОР-врача"> Наблюдение у фониатра или ЛОР<br>
+                    <input type="checkbox" name="q33_rules[]" value="соблюдение особого режима питания"> Особый режим питания
+                </div>
+                <div class="question">
+                    <label>34. Хотели бы узнать о методах профилактики нарушений голоса?</label>
+                    <input type="radio" name="q34_interest" value="да, я заинтересован в этом" required> Да, заинтересован<br>
+                    <input type="radio" name="q34_interest" value="нет, меня это не интересует"> Нет
+                </div>
+                <div class="question">
+                    <label>Участвуйте в розыгрыше 3 сертификатов в "Читай-город"! (Optional)</label>
+                    <input type="email" name="raffle_email" placeholder="Ваш email для розыгрыша">
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="button" class="prev" id="prevBtn" disabled>Назад</button>
+                <button type="button" class="next" id="nextBtn">Далее</button>
+                <button type="submit" class="submit" id="submitBtn" style="display:none;">Отправить</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const steps = document.querySelectorAll('.step');
+        const progress = document.querySelector('.progress');
+        const progressText = document.querySelector('.progress-text');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        let currentStep = 0;
+
+        function updateProgress() {
+            const percent = (currentStep / (steps.length - 1)) * 100;
+            progress.style.width = `${percent}%`;
+            progressText.textContent = `${Math.round(percent)}%`;
+        }
+
+        function showStep(n) {
+            steps.forEach((step, index) => {
+                step.classList.toggle('active', index === n);
+            });
+            updateProgress();
+            prevBtn.disabled = n === 0;
+            if (n === steps.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+            } else {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        function validateStep() {
+            const currentFields = steps[currentStep].querySelectorAll('[required]:not(.hidden *)');
+            return Array.from(currentFields).every(field => field.checkValidity());
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (validateStep()) {
+                currentStep++;
+                showStep(currentStep);
+                applyConditions();
+            } else {
+                alert('Пожалуйста, заполните обязательные поля!');
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentStep--;
+            showStep(currentStep);
+            applyConditions();
+        });
+
+        // Conditional logic
+        function applyConditions() {
+            // Specialty for q5
+            const specPred = document.getElementById('spec_pred');
+            const q5 = document.getElementById('q5_disciplines');
+            if (specPred.checked) {
+                q5.style.display = 'block';
+                q5.querySelector('select').required = true;
+            } else {
+                q5.style.display = 'none';
+                q5.querySelector('select').required = false;
+            }
+
+            // Voice issues
+            const voiceNo = document.getElementById('voice_no');
+            const voiceRelated = document.getElementById('voice_related');
+            if (voiceNo.checked) {
+                voiceRelated.classList.add('hidden');
+                voiceRelated.querySelectorAll('input:checked').forEach(inp => inp.checked = false);
+            } else {
+                voiceRelated.classList.remove('hidden');
+            }
+
+            // Smoking
+            const smokeNo = document.getElementById('smoke_no');
+            const smokingRelated = document.getElementById('smoking_related');
+            if (smokeNo.checked) {
+                smokingRelated.classList.add('hidden');
+                smokingRelated.querySelectorAll('input:checked').forEach(inp => inp.checked = false);
+            } else {
+                smokingRelated.classList.remove('hidden');
+            }
+        }
+
+        document.querySelectorAll('input[name="q4_specialty"], input[name="q8_voice_issues"], input[name="q24_smoking"]').forEach(input => {
+            input.addEventListener('change', applyConditions);
+        });
+
+        showStep(0);
+        applyConditions();
+    </script>
+</body>
+</html>
